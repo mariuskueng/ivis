@@ -1,0 +1,17 @@
+{
+  "name": "graphs",
+  "homepage": "https://github.com/mariuskueng/ivis",
+  "authors": [
+    "Marius Küng <maku@mailbox.org>"
+  ],
+  "description": "",
+  "main": "main.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
