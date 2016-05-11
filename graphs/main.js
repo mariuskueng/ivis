@@ -9,7 +9,7 @@ var cy = cytoscape({
       selector: 'node',
       style: {
         'background-color': '#666',
-        'label': 'data(id)'
+        'label': 'data(name)'
       }
     },
 
@@ -59,18 +59,20 @@ var cy = cytoscape({
 //
 
 // remove titles and limit dataset
-var artworks = graphData.data.splice(1, 100);
+var data = graphData.data.splice(1, 200);
 
+var artworks = new Set();
 var years = new Set();
 var materials = new Set();
 
-for(var a of artworks) {
-  var artwork = a[0];
+for(var a of data) {
+  var artworkId = a[0] + '-' + makeid();
+  var artworkName = a[0];
   var year = a[1];
   var material = a[2];
   var image = a[3] ? a[3] : '';
 
-  cy.add({group: "nodes", data: {id: artwork, name: artwork, image: image }});
+  cy.add({group: "nodes", data: {id: artworkId , name: artworkName, image: image }});
 
   if (!years.has(year)) {
     if (year && !year.includes('.jpg')) {
@@ -79,7 +81,6 @@ for(var a of artworks) {
     }
   }
 
-
   if (!materials.has(material)) {
     if (material && !material.includes('.jpg')) {
       materials.add(material);
@@ -87,8 +88,8 @@ for(var a of artworks) {
     }
   }
 
-  cy.add({group: "edges", data: {source: artwork, target: year}});
-  cy.add({group: "edges", data: {source: artwork, target: material}});
+  cy.add({group: "edges", data: {source: artworkId, target: year}});
+  cy.add({group: "edges", data: {source: artworkId, target: material}});
 }
 
 cy.elements().layout({ name: 'cose' });
