@@ -77,6 +77,7 @@ var artworks = new Set();
 var years = new Set();
 var materials = new Set();
 
+cy.startBatch();
 for(var a of data) {
   var artworkId = a[0] + '-' + makeid();
   var artworkName = a[0];
@@ -94,4 +95,5 @@ for(var a of data) {
   addEdge(cy, artworkId, material);
 }
 
+cy.endBatch();
 cy.elements().layout({ name: 'cose' });
