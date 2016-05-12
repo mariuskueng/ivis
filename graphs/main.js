@@ -72,24 +72,14 @@ for(var a of data) {
   var material = a[2];
   var image = a[3] ? a[3] : '';
 
+  // add artwork node
   cy.add({group: "nodes", data: {id: artworkId , name: artworkName, image: image }});
 
-  if (!years.has(year)) {
-    if (year && !year.includes('.jpg')) {
-      years.add(year);
-      cy.add({group: "nodes", data: {id: year, name: year }});
-    }
-  }
+  addNode(years, year);
+  addNode(materials, material);
 
-  if (!materials.has(material)) {
-    if (material && !material.includes('.jpg')) {
-      materials.add(material);
-      cy.add({group: "nodes", data: {id: material, name: material }});
-    }
-  }
-
-  cy.add({group: "edges", data: {source: artworkId, target: year}});
-  cy.add({group: "edges", data: {source: artworkId, target: material}});
+  addEdge(artworkId, year);
+  addEdge(artworkId, material);
 }
 
 cy.elements().layout({ name: 'cose' });

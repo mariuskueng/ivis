@@ -8,3 +8,16 @@ function makeid()
 
     return text;
 }
+
+function addNode(collection, item) {
+  if (!collection.has(item)) {
+    if (item && !year.includes('.jpg')) {
+      collection.add(item);
+      cy.add({group: "nodes", data: {id: item, name: item }});
+    }
+  }
+}
+
+function addEdge(source, target) {
+  cy.add({group: "edges", data: {source: source, target: target}});
+}
