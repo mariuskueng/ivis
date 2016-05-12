@@ -8,8 +8,20 @@ var cy = cytoscape({
     {
       selector: 'node',
       style: {
+        width: 3,
+        height: 3,
         'background-color': '#666',
         'label': 'data(name)'
+      }
+    },
+
+    {
+      selector: 'node[[degree >= 10]]',
+      style: {
+        'background-color': 'red',
+        'font-weight': 'bold',
+        width: 50,
+        height: 50
       }
     },
 
