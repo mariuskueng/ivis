@@ -96,4 +96,10 @@ for(var a of data) {
 }
 
 cy.endBatch();
+
+// var nodesWithSmallIndegree = cy.nodes().filterFn(function( ele ){
+//   return ele.degree() < 2;
+// });
+// cy.remove(nodesWithSmallIndegree);
+
 cy.elements().layout({ name: 'cose' });
