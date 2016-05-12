@@ -11,7 +11,7 @@ function makeid()
 
 function addNode(cy, collection, item) {
   if (!collection.has(item)) {
-    if (item && !year.includes('.jpg')) {
+    if (item && !item.includes('.jpg')) {
       collection.add(item);
       cy.add({group: "nodes", data: {id: item, name: item }});
     }

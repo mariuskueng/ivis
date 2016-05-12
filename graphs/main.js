@@ -52,63 +52,41 @@ var cy = cytoscape({
 
 });
 
-// Example with numbers and groups
-//
-// var values = [
-//   {id:1, group:'a'},
-//   {id:2, group:'b'},
-//   {id:3, group:'c'},
-//   {id:4, group:'a'},
-//   {id:5, group:'b'},
-//   {id:6, group:'c'},
-//   {id:7, group:'a'},
-//   {id:8, group:'b'},
-//   {id:9, group:'c'},
-//   {id:10, group:'a'},
-// ];
-//
-// var groups = new Set();
-// for (var n in values) {
-//   cy.add({group: "nodes", data: {id: values[n].id, name: '#'+values[n].id }})
-//   var group = values[n].group;
-//   if (!groups.has(group)) {
-//     groups.add(group);
-//     cy.add({group: "nodes", data: {id: group, name: group }})
-//   }
-//   cy.add({group: "edges", data: {source: values[n].id, target: group}});
-// }
-//
-
-// remove titles and limit dataset
-var data = graphData.data.splice(1, 200);
-
 var artworks = new Set();
 var years = new Set();
 var materials = new Set();
 
-cy.startBatch();
-for(var a of data) {
-  var artworkId = a[0] + '-' + makeid();
-  var artworkName = a[0];
-  var year = a[1];
-  var material = a[2];
-  var image = a[3] ? a[3] : '';
+$.ajax({
+  url: "http://server1102.cs.technik.fhnw.ch/json.php?t=Werk&n=3000&c=TITEL,JAHR,MATERIAL,BILDNAME",
+})
+.done(function( data ) {
+  var artworks = JSON.parse(data);
 
-  // add artwork node
-  cy.add({group: "nodes", data: {id: artworkId , name: artworkName, image: image }});
+  cy.startBatch();
 
-  addNode(cy, years, year);
-  addNode(cy, materials, material);
+  for(var artwork of artworks) {
+    var artworkName = artwork.TITEL.trim();
+    var artworkId = artworkName + '-' + makeid();
+    var year = artwork.JAHR.trim();
+    var material = artwork.MATERIAL.trim();
+    var imageUrl = 'http://server1102.cs.technik.fhnw.ch/bilder/' + artwork.BILDNAME.trim();
 
-  addEdge(cy, artworkId, year);
-  addEdge(cy, artworkId, material);
-}
+    // add artwork node
+    cy.add({group: "nodes", data: {id: artworkId , name: artworkName, imageUrl: imageUrl }});
 
-cy.endBatch();
+    addNode(cy, years, year);
+    addNode(cy, materials, material);
 
-// var nodesWithSmallIndegree = cy.nodes().filterFn(function( ele ){
-//   return ele.degree() < 2;
-// });
-// cy.remove(nodesWithSmallIndegree);
+    addEdge(cy, artworkId, year);
+    addEdge(cy, artworkId, material);
+  }
 
-cy.elements().layout({ name: 'cose' });
+  cy.endBatch();
+
+  // var nodesWithSmallIndegree = cy.nodes().filterFn(function( ele ){
+  //   return ele.degree() < 2;
+  // });
+  // cy.remove(nodesWithSmallIndegree);
+
+  cy.elements().layout({ name: 'cose' });
+});
