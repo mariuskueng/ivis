@@ -9,7 +9,7 @@ function makeid()
     return text;
 }
 
-function addNode(collection, item) {
+function addNode(cy, collection, item) {
   if (!collection.has(item)) {
     if (item && !year.includes('.jpg')) {
       collection.add(item);
@@ -18,6 +18,6 @@ function addNode(collection, item) {
   }
 }
 
-function addEdge(source, target) {
+function addEdge(cy, source, target) {
   cy.add({group: "edges", data: {source: source, target: target}});
 }

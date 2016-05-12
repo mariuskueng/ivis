@@ -75,11 +75,11 @@ for(var a of data) {
   // add artwork node
   cy.add({group: "nodes", data: {id: artworkId , name: artworkName, image: image }});
 
-  addNode(years, year);
-  addNode(materials, material);
+  addNode(cy, years, year);
+  addNode(cy, materials, material);
 
-  addEdge(artworkId, year);
-  addEdge(artworkId, material);
+  addEdge(cy, artworkId, year);
+  addEdge(cy, artworkId, material);
 }
 
 cy.elements().layout({ name: 'cose' });
