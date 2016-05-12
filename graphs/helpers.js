@@ -18,6 +18,15 @@ function addNode(cy, type, collection, item) {
   }
 }
 
-function addEdge(cy, source, target) {
-  cy.add({group: "edges", data: {source: source, target: target}});
+function addEdge(cy, source, target, type) {
+  cy.add({
+    group: "edges",
+    data: {
+      source: source,
+      target: target
+    },
+    // style: {
+    //   'line-color': color
+    // }
+  });
 }
