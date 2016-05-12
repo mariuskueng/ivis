@@ -1,5 +1,7 @@
 'use strict';
 
+var INITIAL_NODE_SIZE = 20;
+
 var cy = cytoscape({
 
   container: document.getElementById('cy'), // container to render in
@@ -8,20 +10,34 @@ var cy = cytoscape({
     {
       selector: 'node',
       style: {
-        width: 10,
-        height: 10,
+        width: INITIAL_NODE_SIZE,
+        height: INITIAL_NODE_SIZE,
         'background-color': '#666',
         'label': 'data(name)'
       }
     },
-
+    {
+      selector: 'node[[degree >= 3]]',
+      style: {
+        'font-weight': 'bold',
+        width: INITIAL_NODE_SIZE * 2,
+        height: INITIAL_NODE_SIZE * 2
+      }
+    },
+    {
+      selector: 'node[[degree >= 5]]',
+      style: {
+        'font-weight': 'bold',
+        width: INITIAL_NODE_SIZE * 2.5,
+        height: INITIAL_NODE_SIZE * 2.5
+      }
+    },
     {
       selector: 'node[[degree >= 10]]',
       style: {
-        'background-color': 'red',
         'font-weight': 'bold',
-        width: 50,
-        height: 50
+        width: INITIAL_NODE_SIZE * 3,
+        height: INITIAL_NODE_SIZE * 3
       }
     },
 
@@ -29,8 +45,20 @@ var cy = cytoscape({
       selector: 'node:active',
       style: {
         'background-color': 'green',
-        width: 25,
-        height: 25,
+      }
+    },
+
+    {
+      selector: '.node-year',
+      style: {
+        'background-color': 'yellow',
+      }
+    },
+
+    {
+      selector: '.node-material',
+      style: {
+        'background-color': 'lime',
       }
     },
 
@@ -57,7 +85,7 @@ var years = new Set();
 var materials = new Set();
 
 $.ajax({
-  url: "http://server1102.cs.technik.fhnw.ch/json.php?t=Werk&n=3000&c=TITEL,JAHR,MATERIAL,BILDNAME",
+  url: "http://server1102.cs.technik.fhnw.ch/json.php?t=Werk&n=500&c=TITEL,JAHR,MATERIAL,BILDNAME",
 })
 .done(function( data ) {
   var artworks = JSON.parse(data);
@@ -69,13 +97,13 @@ $.ajax({
     var artworkId = artworkName + '-' + makeid();
     var year = artwork.JAHR.trim();
     var material = artwork.MATERIAL.trim();
-    var imageUrl = 'http://server1102.cs.technik.fhnw.ch/bilder/' + artwork.BILDNAME.trim();
+    var imageUrl = 'http://www.sikart.ch/abb373/' + artwork.BILDNAME.trim();
 
     // add artwork node
-    cy.add({group: "nodes", data: {id: artworkId , name: artworkName, imageUrl: imageUrl }});
+    cy.add({group: "nodes", classes: 'node-artwork', data: {id: artworkId , name: artworkName, imageUrl: imageUrl }});
 
-    addNode(cy, years, year);
-    addNode(cy, materials, material);
+    addNode(cy, 'year', years, year);
+    addNode(cy, 'material', materials, material);
 
     addEdge(cy, artworkId, year);
     addEdge(cy, artworkId, material);
@@ -88,5 +116,32 @@ $.ajax({
   // });
   // cy.remove(nodesWithSmallIndegree);
 
-  cy.elements().layout({ name: 'cose' });
+  cy.$('node').on('mouseover', function(e){
+    var ele = e.cyTarget;
+    var data = ele.data();
+
+    if (data.imageUrl) {
+      ele.style({
+        'background-image': 'url(' + data.imageUrl + ')',
+        'width': 200,
+        'height': 200,
+      });
+      console.log('hover ' + ele.id());
+    }
+  });
+
+  cy.$('node').on('mouseout', function(e){
+    var ele = e.cyTarget;
+    var data = ele.data();
+
+    if (data.imageUrl) {
+      ele.style({
+        'background-image': '',
+        'width': 10,
+        'height': 10,
+      });
+    }
+  });
+
+  cy.elements().layout({ name: 'cose', idealEdgeLength : 500});
 });

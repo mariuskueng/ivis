@@ -9,11 +9,11 @@ function makeid()
     return text;
 }
 
-function addNode(cy, collection, item) {
+function addNode(cy, type, collection, item) {
   if (!collection.has(item)) {
     if (item && !item.includes('.jpg')) {
       collection.add(item);
-      cy.add({group: "nodes", data: {id: item, name: item }});
+      cy.add({group: "nodes", classes: 'node-' + type, data: {id: item, name: item }});
     }
   }
 }
