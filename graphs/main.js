@@ -1,6 +1,12 @@
 'use strict';
 
 var INITIAL_NODE_SIZE = 20;
+var amount = 100;
+
+$('.amount-select').on('change', function(e) {
+  e.preventDefault();
+  loadData($('.amount-select').val());
+});
 
 var cy = cytoscape({
 
@@ -90,85 +96,91 @@ var artworks = new Set();
 var years = new Set();
 var materials = new Set();
 
-$.ajax({
-  url: "http://server1102.cs.technik.fhnw.ch/json.php?t=Werk&n=100&c=TITEL,JAHR,MATERIAL,BILDNAME",
-})
-.done(function( data ) {
-  var artworks = JSON.parse(data);
+function loadData(amount) {
+  cy.elements().remove();
 
-  cy.startBatch();
+  $.ajax({
+    url: "http://server1102.cs.technik.fhnw.ch/json.php?t=Werk&n=" + amount + "&c=TITEL,JAHR,MATERIAL,BILDNAME",
+  })
+  .done(function( data ) {
+    var artworks = JSON.parse(data);
 
-  for(var artwork of artworks) {
-    var artworkName = artwork.TITEL.trim();
-    artwork.ID = makeid();
-    var artworkId = artwork.ID;
-    var year = artwork.JAHR.trim();
-    var material = artwork.MATERIAL.trim();
-    var imageUrl = 'http://www.sikart.ch/abb373/' + artwork.BILDNAME.trim();
+    cy.startBatch();
 
-    // add artwork node
-    cy.add({
-      group: "nodes",
-      classes: 'node-artwork',
-      data: {
-        name: artworkName,
-        id: artworkId,
-        year: year,
-        material: material,
-        imageUrl: imageUrl,
-        weight: 0
-      }
-    });
+    for(var artwork of artworks) {
+      var artworkName = artwork.TITEL.trim();
+      artwork.ID = makeid();
+      var artworkId = artwork.ID;
+      var year = artwork.JAHR.trim();
+      var material = artwork.MATERIAL.trim();
+      var imageUrl = 'http://www.sikart.ch/abb373/' + artwork.BILDNAME.trim();
 
-    for(var a of artworks) {
-      if (a.ID && artworkId !== a.ID) {
-        if (material == a.MATERIAL && year == a.JAHR) {
-          addEdge(cy, artworkId, a.ID, 'red');
-          console.log("yolo1");
-        } else if (material == a.MATERIAL) {
-          addEdge(cy, artworkId, a.ID, 'yellow');
-          console.log("yolo2");
-        } else if (year == a.JAHR) {
-          addEdge(cy, artworkId, a.ID, 'green');
-          console.log("yolo3");
+      // add artwork node
+      cy.add({
+        group: "nodes",
+        classes: 'node-artwork',
+        data: {
+          name: artworkName,
+          id: artworkId,
+          year: year,
+          material: material,
+          imageUrl: imageUrl,
+          weight: 0
+        }
+      });
+
+      for(var a of artworks) {
+        if (a.ID && artworkId !== a.ID) {
+          if (material == a.MATERIAL && year == a.JAHR) {
+            addEdge(cy, artworkId, a.ID, 'red');
+            console.log("yolo1");
+          } else if (material == a.MATERIAL) {
+            addEdge(cy, artworkId, a.ID, 'yellow');
+            console.log("yolo2");
+          } else if (year == a.JAHR) {
+            addEdge(cy, artworkId, a.ID, 'green');
+            console.log("yolo3");
+          }
         }
       }
     }
-  }
 
-  cy.endBatch();
+    cy.endBatch();
 
-  var currentNodeName;
-  cy.$('node').on('mouseover', function(e){
-    var ele = e.cyTarget;
-    var data = ele.data();
-    currentNodeName = data.name;
+    var currentNodeName;
+    cy.$('node').on('mouseover', function(e){
+      var ele = e.cyTarget;
+      var data = ele.data();
+      currentNodeName = data.name;
 
-    if (data.imageUrl) {
-      ele.data({name: data.name + ' | ' + data.year + ' | ' + data.material});
-      ele.style({
-        'background-image': 'url(' + data.imageUrl + ')',
-        'width': 500,
-        'height': 500,
-      });
-      console.log('hover ' + ele.id());
-    }
+      if (data.imageUrl) {
+        ele.data({name: data.name + ' | ' + data.year + ' | ' + data.material});
+        ele.style({
+          'background-image': 'url(' + data.imageUrl + ')',
+          'width': 500,
+          'height': 500,
+        });
+        console.log('hover ' + ele.id());
+      }
+    });
+
+    cy.$('node').on('mouseout', function(e){
+      var ele = e.cyTarget;
+      var data = ele.data();
+
+      ele.data({name: currentNodeName});
+
+      if (data.imageUrl) {
+        ele.style({
+          'background-image': '',
+          'width': 10,
+          'height': 10,
+        });
+      }
+    });
+
+    cy.elements().layout({ name: 'spread', minDist : 100});
   });
+}
 
-  cy.$('node').on('mouseout', function(e){
-    var ele = e.cyTarget;
-    var data = ele.data();
-
-    ele.data({name: currentNodeName});
-
-    if (data.imageUrl) {
-      ele.style({
-        'background-image': '',
-        'width': 10,
-        'height': 10,
-      });
-    }
-  });
-
-  cy.elements().layout({ name: 'spread', minDist : 100});
-});
+loadData(100);
