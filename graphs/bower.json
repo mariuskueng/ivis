@@ -17,6 +17,7 @@
   "dependencies": {
     "cytoscape": "^2.6.11",
     "jquery": "^2.2.3",
-    "cytoscape-spread": "^1.2.0"
+    "cytoscape-spread": "^1.2.0",
+    "bootstrap": "^3.3.6"
   }
 }
