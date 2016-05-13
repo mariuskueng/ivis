@@ -80,7 +80,7 @@ var cy = cytoscape({
   ],
 
   layout: {
-    name: 'grid',
+    name: 'spread',
     rows: 1
   }
 
@@ -100,7 +100,7 @@ $.ajax({
 
   for(var artwork of artworks) {
     var artworkName = artwork.TITEL.trim();
-    artwork.ID = artworkName + '-' + makeid();
+    artwork.ID = makeid();
     var artworkId = artwork.ID;
     var year = artwork.JAHR.trim();
     var material = artwork.MATERIAL.trim();
@@ -111,37 +111,30 @@ $.ajax({
       group: "nodes",
       classes: 'node-artwork',
       data: {
+        name:artworkName,
         id: artworkId ,
-        name: artworkName,
         imageUrl: imageUrl,
         weight: 0
       }
     });
 
-    // addNode(cy, 'year', years, year);
-    // addNode(cy, 'material', materials, material);
-    //
-    // addEdge(cy, artworkId, year);
-    // addEdge(cy, artworkId, material);
-
     for(var a of artworks) {
-      if (artworkId !== a.ID) {
-        if (material == a.MATERIAL) {
-          addEdge(cy, artworkId, a.ID, 'material');
-        }
-        if (year == a.year) {
-          addEdge(cy, artworkId, a.ID, 'year');
+      if (a.ID && artworkId !== a.ID) {
+        if (material == a.MATERIAL && year == a.JAHR) {
+          addEdge(cy, artworkId, a.ID, 'red');
+          console.log("yolo1");
+        } else if (material == a.MATERIAL) {
+          addEdge(cy, artworkId, a.ID, 'yellow');
+          console.log("yolo2");
+        } else if (year == a.JAHR) {
+          addEdge(cy, artworkId, a.ID, 'green');
+          console.log("yolo3");
         }
       }
     }
   }
 
   cy.endBatch();
-
-  // var nodesWithSmallIndegree = cy.nodes().filterFn(function( ele ){
-  //   return ele.degree() < 2;
-  // });
-  // cy.remove(nodesWithSmallIndegree);
 
   cy.$('node').on('mouseover', function(e){
     var ele = e.cyTarget;
@@ -150,8 +143,8 @@ $.ajax({
     if (data.imageUrl) {
       ele.style({
         'background-image': 'url(' + data.imageUrl + ')',
-        'width': 200,
-        'height': 200,
+        'width': 500,
+        'height': 500,
       });
       console.log('hover ' + ele.id());
     }
@@ -170,5 +163,5 @@ $.ajax({
     }
   });
 
-  cy.elements().layout({ name: 'cose', idealEdgeLength : 500});
+  cy.elements().layout({ name: 'spread', minDist : 100});
 });
