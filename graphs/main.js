@@ -157,8 +157,11 @@ function loadData(amount) {
         ele.data({name: data.name + ' | ' + data.year + ' | ' + data.material});
         ele.style({
           'background-image': 'url(' + data.imageUrl + ')',
-          'width': 500,
-          'height': 500,
+          'width': 400,
+          'height': 400,
+          'font-size': '20px',
+          'font-weight': 'bold',
+          'shape': 'square'
         });
         console.log('hover ' + ele.id());
       }
@@ -175,6 +178,8 @@ function loadData(amount) {
           'background-image': '',
           'width': 10,
           'height': 10,
+          'font-size': '15px',
+          'font-weight': 'normal'
         });
       }
     });
