@@ -111,8 +111,10 @@ $.ajax({
       group: "nodes",
       classes: 'node-artwork',
       data: {
-        name:artworkName,
-        id: artworkId ,
+        name: artworkName,
+        id: artworkId,
+        year: year,
+        material: material,
         imageUrl: imageUrl,
         weight: 0
       }
@@ -136,11 +138,14 @@ $.ajax({
 
   cy.endBatch();
 
+  var currentNodeName;
   cy.$('node').on('mouseover', function(e){
     var ele = e.cyTarget;
     var data = ele.data();
+    currentNodeName = data.name;
 
     if (data.imageUrl) {
+      ele.data({name: data.name + ' | ' + data.year + ' | ' + data.material});
       ele.style({
         'background-image': 'url(' + data.imageUrl + ')',
         'width': 500,
@@ -153,6 +158,8 @@ $.ajax({
   cy.$('node').on('mouseout', function(e){
     var ele = e.cyTarget;
     var data = ele.data();
+
+    ele.data({name: currentNodeName});
 
     if (data.imageUrl) {
       ele.style({
