@@ -5,10 +5,10 @@ const App = React.createClass({
   render() {
     let markers = [{
       position: {
-        lat: 25.0112183,
-        lng: 121.52067570000001,
+        lat: 46.951220,
+        lng: 7.443125,
       },
-      key: 'Taiwan',
+      key: 'Bern',
       defaultAnimation: 2,
     }];
 
