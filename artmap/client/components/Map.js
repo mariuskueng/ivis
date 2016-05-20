@@ -17,9 +17,22 @@ export default function SimpleMap (props) {
         googleMapElement={
           <GoogleMap
             ref={(map) => console.log(map)}
-            defaultZoom={3}
-            defaultCenter={{ lat: -25.363882, lng: 131.044922 }}
+            defaultZoom={8}
+            defaultCenter={{ lat: 46.891461, lng: 8.099526 }} // Rotbach
             onClick={props.onMapClick}
+            defaultOptions={{
+              disableDefaultUI: true,
+              backgroundColor: '#CCC',
+              styles: [
+                {
+                  featureType: 'all',
+                  stylers: [
+                    { saturation: -100 }
+                  ]
+                }
+              ]
+            }}
+
           >
             {props.markers.map((marker, index) => {
               return (
