@@ -1,5 +1,24 @@
+// Colors
+$pink: #c06;
+$gray: #b8b8b8;
+$white: #fff;
+$black: #000;
+$violet: #9a6ec2;
+
+
 body {
   // color: red;
+}
+
+header {
+  background-color: $white;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+
+  h1 {
+    color: $pink;
+  }
 }
 
 .map {
