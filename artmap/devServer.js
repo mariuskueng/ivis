@@ -14,6 +14,9 @@ var mysqlCredentials = {
   database : 'ivis_fs16'
 };
 
+var connection = mysql.createConnection(mysqlCredentials);
+connection.connect();
+
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
@@ -40,14 +43,11 @@ app.get('/artist', function(req, res) {
   queryString = queryString.substring(0, queryString.length - 3);
 
   try {
-    connection.connect();
-
     connection.query(queryString, function(err, rows, fields) {
       if (err) throw err;
       res.send(rows);
     });
 
-    connection.end();
   } catch (e) {
     res.send('SQL Error: ' + e);
   }
@@ -55,25 +55,17 @@ app.get('/artist', function(req, res) {
 
 app.get('/locations', function(req, res) {
 
-  var connection = mysql.createConnection(mysqlCredentials);
-
   if (req.query.artistId && req.query.artistName) {
     try {
-
       var queryString =
         'SELECT AUSST_ORT, AUSST_TITEL, AUSST_INSTITUT, AUSST_DATUM FROM Ausstellung WHERE KUENSTLER_NAMENSSUCHE LIKE "' +
         req.query.artistId + '#' + req.query.artistName + '"';
-
-      console.log(queryString);
-
-      connection.connect();
 
       connection.query(queryString, function(err, rows, fields) {
         if (err) throw err;
         res.send(rows);
       });
 
-      connection.end();
     } catch (e) {
       res.send('SQL Error: ' + e);
     }
