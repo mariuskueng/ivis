@@ -7,7 +7,7 @@
     "build": "npm run clean && npm run build:webpack",
     "test": "NODE_ENV=production mocha './tests/**/*.spec.js' --compilers js:babel-core/register",
     "clean": "rimraf dist",
-    "start": "node devServer.js",
+    "start": "nodemon devServer.js",
     "tunnel": "browser-sync start --proxy localhost:7770 --tunnel wesbos"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "eslint-plugin-babel": "^3.2.0",
     "eslint-plugin-react": "^5.0.1",
     "express": "^4.13.4",
+    "mysql": "^2.10.2",
     "node-sass": "^3.7.0",
     "postcss-loader": "^0.9.1",
     "raven-js": "^2.3.0",
@@ -58,6 +59,7 @@
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",
     "mocha": "^2.4.5",
+    "nodemon": "^1.9.2",
     "react-addons-test-utils": "^15.0.2"
   }
 }
