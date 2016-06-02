@@ -16,7 +16,6 @@ export default function SimpleMap (props) {
         }
         googleMapElement={
           <GoogleMap
-            ref={(map) => console.log(map)}
             defaultZoom={8}
             defaultCenter={{ lat: 46.891461, lng: 8.099526 }} // Rotbach
             onClick={props.onMapClick}
