@@ -3,13 +3,14 @@ import Map from './Map';
 import $ from 'jQuery';
 
 import NameFilter from './filters/NameFilter';
+import markers from '../data/markers';
 
 const GEOCODE_API_KEY = 'AIzaSyCDbgMkPWtPF1RXKYsgDKTX-nc_gmgmnp0';
 
 const App = React.createClass({
   getInitialState(){
     return {
-      markers: []
+      markers // use default markers for testing
     }
   },
 
