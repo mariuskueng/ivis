@@ -4,8 +4,8 @@ const MuseumInfo = React.createClass({
   render () {
     return (
       <div className="museum-info">
-        <h3>Museum Info</h3>
-        <h1>{this.props.title}</h1>
+        <h4>Ausgewähltes Museum</h4>
+        <h1>{this.props.title ? this.props.title : 'Klicken Sie auf einen Pin in der Karte!'}</h1>
       </div>
     )
   }
