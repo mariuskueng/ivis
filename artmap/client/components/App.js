@@ -41,7 +41,7 @@ const App = React.createClass({
   },
 
   getMarkers(locations) {
-    let markers = this.state.markers;
+    let markers = [];
     console.info('Searching for exhibition location markers');
     locations.forEach((location) => {
       const address = `${location.AUSST_INSTITUT} ${location.AUSST_ORT}`;
