@@ -31,5 +31,10 @@ header {
 .museum-info {
   border: 2px solid $pink;
   height: 100vh;
+  overflow: scroll;
   padding: 10px;
+}
+
+.artwork-image {
+  margin-bottom: 20px;
 }

@@ -12,7 +12,8 @@ const App = React.createClass({
   getInitialState(){
     return {
       markers, // use default markers for testing
-      museumTitle: ''
+      museumTitle: '',
+      artistId: 4000058
     }
   },
 
@@ -23,6 +24,9 @@ const App = React.createClass({
       .done((results) => {
         if (results.length) {
           let artist = results[0];
+          this.setState({
+            artistId: artist.RECNR
+          })
           this.getLocations(name, artist.RECNR, artist.NAMIDENT);
         } else {
           alert(`Keine Künstler gefunden zu ${name}!`);
@@ -47,7 +51,7 @@ const App = React.createClass({
     let markers = [];
     console.info('Searching for exhibition location markers');
     locations.forEach((location) => {
-      const address = `${location.AUSST_INSTITUT} ${location.AUSST_ORT}`;
+      const address = `${location.AUSST_INSTITUT}`;
       $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + GEOCODE_API_KEY)
       .done((data) => {
         if (data.results.length) {
@@ -72,7 +76,6 @@ const App = React.createClass({
   },
 
   onMarkerClick(index) {
-    console.info(this.state.markers[index].title);
     this.setState({
       museumTitle: this.state.markers[index].title
     });
@@ -91,7 +94,7 @@ const App = React.createClass({
               <div className="row">
                 <div className="col-md-12">
 
-                  <NameFilter getArtists={this.getArtists}/>
+                  <NameFilter getArtists={this.getArtists} />
 
                   <div className="col-md-3">
                     <div className="form-group">
@@ -152,7 +155,7 @@ const App = React.createClass({
         <div className="container-fluid">
           <div className="row">
             <section className="col-md-3">
-              <MuseumInfo title={this.state.museumTitle} />
+              <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} />
             </section>
             <section className="map col-md-9">
               <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
