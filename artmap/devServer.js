@@ -8,8 +8,8 @@ var app = express();
 var compiler = webpack(config);
 
 var mysqlCredentials = {
-  host     : 'server1102.cs.technik.fhnw.ch',
-  user     : 'ivis_fs16',
+  host     : 'localhost',
+  user     : 'root',
   password : '',
   database : 'ivis_fs16'
 };
@@ -54,7 +54,6 @@ app.get('/artist', function(req, res) {
 });
 
 app.get('/locations', function(req, res) {
-
   if (req.query.artistId && req.query.artistName) {
     try {
       var queryString =
@@ -73,7 +72,28 @@ app.get('/locations', function(req, res) {
   else {
     res.send('Error: No artistId given');
   }
+});
 
+app.get('/images', function(req, res) {
+  if (req.query.artistId && req.query.museum) {
+    try {
+
+      var queryString = 'SELECT TITEL, BILDNAME FROM Werk WHERE URHAUPTNR=' + req.query.artistId +
+      ' AND ABB_LEGENDE LIKE ' + connection.escape('%' + req.query.museum + '%');
+
+      connection.query(queryString, function(err, rows, fields) {
+        if (err) throw err;
+        res.send(rows);
+      });
+
+    } catch (e) {
+      res.send('SQL Error: ' + e);
+    }
+  } else if (req.query.artistId) {
+    res.send('Not yet implemented!');
+  } else {
+    res.send('Error: No artistId given');
+  }
 });
 
 app.listen(7770, 'localhost', function(err) {
