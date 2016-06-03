@@ -4,13 +4,15 @@ import $ from 'jQuery';
 
 import NameFilter from './filters/NameFilter';
 import markers from '../data/markers';
+import MuseumInfo from './MuseumInfo';
 
 const GEOCODE_API_KEY = 'AIzaSyCDbgMkPWtPF1RXKYsgDKTX-nc_gmgmnp0';
 
 const App = React.createClass({
   getInitialState(){
     return {
-      markers // use default markers for testing
+      markers, // use default markers for testing
+      museumTitle: ''
     }
   },
 
@@ -67,12 +69,19 @@ const App = React.createClass({
         }
       });
     });
+  },
 
+  onMarkerClick(index) {
+    console.info(this.state.markers[index].title);
+    this.setState({
+      museumTitle: this.state.markers[index].title
+    });
   },
 
   render() {
     return (
       <div>
+        {/* Header */}
         <header className="container-fluid">
           <div className="row">
             <div className="col-md-4">
@@ -138,9 +147,18 @@ const App = React.createClass({
             </div>
           </div>
         </header>
-        <section className="map">
-          <Map markers={this.state.markers} />
-        </section>
+
+        {/* App content */}
+        <div className="container-fluid">
+          <div className="row">
+            <section className="col-md-3">
+              <MuseumInfo title={this.state.museumTitle} />
+            </section>
+            <section className="map col-md-9">
+              <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
+            </section>
+          </div>
+        </div>
       </div>
     )
   }

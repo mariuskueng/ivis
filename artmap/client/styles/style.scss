@@ -6,13 +6,15 @@ $black: #000;
 $violet: #9a6ec2;
 
 
+html,
 body {
-  // color: red;
+  height: 100%;
 }
 
 header {
   background-color: $white;
-  position: absolute;
+  height: 150px;
+  position: relative;
   width: 100%;
   z-index: 100;
 
@@ -22,10 +24,12 @@ header {
 }
 
 .map {
-  bottom: 0;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 0;
+  height: 100vh;
+  position: relative;
+}
+
+.museum-info {
+  border: 2px solid $pink;
+  height: 100vh;
+  padding: 10px;
 }

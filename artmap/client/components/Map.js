@@ -37,7 +37,9 @@ export default function SimpleMap (props) {
               return (
                 <Marker
                   {...marker}
-                  onRightclick={() => props.onMarkerRightclick(index)} />
+                  onRightclick={() => props.onMarkerRightclick(index)}
+                  onClick={() => props.onMarkerClick(index)}
+                />
               );
             })}
           </GoogleMap>
