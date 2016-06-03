@@ -14,6 +14,7 @@ const App = React.createClass({
   },
 
   getArtists(name) {
+    console.info('Searching for artist ' + name);
     if (name) {
       $.get('/artist?name=' + name)
       .done((results) => {
@@ -28,6 +29,7 @@ const App = React.createClass({
   },
 
   getLocations(searchName, artistId, artistName) {
+    console.info('Searching for exhibition locations of ' + searchName);
     $.get('/locations?artistId=' + artistId + '&artistName=' + artistName)
     .done((results) => {
       if (results.length) {
@@ -40,6 +42,7 @@ const App = React.createClass({
 
   getMarkers(locations) {
     let markers = this.state.markers;
+    console.info('Searching for exhibition location markers');
     locations.forEach((location) => {
       const address = `${location.AUSST_INSTITUT} ${location.AUSST_ORT}`;
       $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + GEOCODE_API_KEY)
@@ -59,7 +62,7 @@ const App = React.createClass({
             markers
           });
         } else {
-          console.log(data);
+          console.error(data);
         }
       });
     });
