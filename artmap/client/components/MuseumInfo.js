@@ -36,7 +36,7 @@ const MuseumInfo = React.createClass({
 
   render () {
     return (
-      <div className="museum-info">
+      <div>
         <h4>Ausgewähltes Museum:</h4>
         {!this.props.favorites.includes(this.props.museum) && this.props.museum ? <button className="btn btn-primary" onClick={this.props.addToFavorites.bind(null, this.state.museum)}>Zur Merkliste hinzufügen</button> : ''}
         <h1>{this.props.museum ? this.props.museum : 'Klicken Sie auf einen Pin in der Karte!'}</h1>

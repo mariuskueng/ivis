@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 const Favorites = React.createClass({
   renderFavorite(key) {
     const favorite = this.props.favorites[key];
-    const removeButton = <a href="#" className="favorite-remove" onClick={this.props.removeFromFavorites.bind(null, key)}>x</a>;
+    const removeButton = <a href="#" className="favorite-remove btn-danger btn-xs" onClick={this.props.removeFromFavorites.bind(null, key)}>x</a>;
     return (
       <li key={favorite}>{favorite} {removeButton}</li>
     );

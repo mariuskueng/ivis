@@ -172,9 +172,9 @@ const App = React.createClass({
         </header>
 
         {/* App content */}
-        <div className="container-fluid">
+        <div className="content container-fluid">
           <div className="row">
-            <section className="col-md-3">
+            <section className="museum-info col-md-3">
               <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} favorites={this.state.favorites} addToFavorites={this.addToFavorites}/>
             </section>
             <section className="map col-md-6">

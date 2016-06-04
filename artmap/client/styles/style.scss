@@ -5,6 +5,7 @@ $white: #fff;
 $black: #000;
 $violet: #9a6ec2;
 
+$container-height: calc(100vh - 160px);
 
 html,
 body {
@@ -23,14 +24,18 @@ header {
   }
 }
 
+.content {
+  margin: 0 10px;
+}
+
 .map {
-  height: 100vh;
+  height: $container-height;
   position: relative;
 }
 
 .museum-info {
   border: 2px solid $pink;
-  height: 100vh;
+  height: $container-height;
   overflow: scroll;
   padding: 10px;
 }
@@ -40,11 +45,10 @@ header {
 }
 
 .favorites {
-  height: 100vh;
+  height: $container-height;
 }
 
 .favorite-remove {
-  color: red;
   display: inline-block;
   margin-left: 5px;
 }
