@@ -85,8 +85,18 @@ const App = React.createClass({
 
   addToFavorites(museum) {
     if (!this.state.favorites.includes(museum)) {
+      this.state.favorites.push(museum);
       this.setState({
-        favorites: [...this.state.favorites, museum]
+        favorites: this.state.favorites
+      });
+    }
+  },
+
+  removeFromFavorites(index) {
+    if (index > -1) {
+      delete this.state.favorites[index];
+      this.setState({
+        favorites: this.state.favorites
       });
     }
   },
@@ -171,7 +181,7 @@ const App = React.createClass({
               <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
             </section>
             <section className="favorites col-md-3">
-              <Favorites favorites={this.state.favorites} />
+              <Favorites favorites={this.state.favorites} removeFromFavorites={this.removeFromFavorites} />
             </section>
           </div>
         </div>
