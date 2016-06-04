@@ -5,6 +5,7 @@ import $ from 'jQuery';
 import NameFilter from './filters/NameFilter';
 import markers from '../data/markers';
 import MuseumInfo from './MuseumInfo';
+import Favorites from './Favorites';
 
 const GEOCODE_API_KEY = 'AIzaSyCDbgMkPWtPF1RXKYsgDKTX-nc_gmgmnp0';
 
@@ -13,7 +14,8 @@ const App = React.createClass({
     return {
       markers, // use default markers for testing
       museumTitle: '',
-      artistId: 4000058
+      artistId: 4000058,
+      favorites: []
     }
   },
 
@@ -157,8 +159,11 @@ const App = React.createClass({
             <section className="col-md-3">
               <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} />
             </section>
-            <section className="map col-md-9">
+            <section className="map col-md-6">
               <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
+            </section>
+            <section className="favorites col-md-3">
+              <Favorites favorites={this.state.favorites} />
             </section>
           </div>
         </div>
