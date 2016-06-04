@@ -15,7 +15,7 @@ const Favorites = React.createClass({
       <div>
         <h1>Merkliste</h1>
         <ul>
-          {favoriteIds.map(this.renderFavorite)}
+          {favoriteIds.length ? favoriteIds.map(this.renderFavorite) : 'Es sind noch keine Museen in der Merkliste'}
         </ul>
       </div>
     )
