@@ -83,6 +83,14 @@ const App = React.createClass({
     });
   },
 
+  addToFavorites(museum) {
+    if (!this.state.favorites.includes(museum)) {
+      this.setState({
+        favorites: [...this.state.favorites, museum]
+      });
+    }
+  },
+
   render() {
     return (
       <div>
@@ -157,7 +165,7 @@ const App = React.createClass({
         <div className="container-fluid">
           <div className="row">
             <section className="col-md-3">
-              <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} />
+              <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} favorites={this.state.favorites} addToFavorites={this.addToFavorites}/>
             </section>
             <section className="map col-md-6">
               <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
