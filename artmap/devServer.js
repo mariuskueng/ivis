@@ -14,6 +14,15 @@ var mysqlCredentials = {
   database : 'ivis_fs16'
 };
 
+// ivis server credentials
+// 
+// mysqlCredentials = {
+//   host     : 'server1102.cs.technik.fhnw.ch',
+//   user     : 'ivis_fs16',
+//   password : '',
+//   database : 'ivis_fs16'
+// };
+
 var connection = mysql.createConnection(mysqlCredentials);
 connection.connect();
 
