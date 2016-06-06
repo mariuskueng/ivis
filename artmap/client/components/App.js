@@ -15,7 +15,8 @@ const App = React.createClass({
       markers, // use default markers for testing
       museumTitle: '',
       artistId: 4000058,
-      favorites: []
+      favorites: [],
+      images: [],
     }
   },
 
@@ -78,9 +79,11 @@ const App = React.createClass({
   },
 
   onMarkerClick(index) {
+    const museumTitle = this.state.markers[index].title;
     this.setState({
-      museumTitle: this.state.markers[index].title
+      museumTitle
     });
+    this.updateImages();
   },
 
   addToFavorites(museum) {
@@ -99,6 +102,15 @@ const App = React.createClass({
         favorites: this.state.favorites
       });
     }
+  },
+
+  updateImages(museumTitle) {
+    $.get('/images?artistId=' + this.state.artistId + '&museum=' + this.state.museumTitle)
+    .done((results) => {
+      this.setState({
+        images: results
+      });
+    });
   },
 
   render() {
@@ -175,13 +187,26 @@ const App = React.createClass({
         <div className="content container-fluid">
           <div className="row">
             <section className="museum-info col-md-3">
-              <MuseumInfo artistId={this.state.artistId} museum={this.state.museumTitle} favorites={this.state.favorites} addToFavorites={this.addToFavorites}/>
+              <MuseumInfo
+                artistId={this.state.artistId}
+                museumTitle={this.state.museumTitle}
+                favorites={this.state.favorites}
+                addToFavorites={this.addToFavorites}
+                images={this.state.images}
+                updateImages={this.updateImages}
+              />
             </section>
             <section className="map col-md-6">
-              <Map markers={this.state.markers} onMarkerClick={this.onMarkerClick} />
+              <Map
+                markers={this.state.markers}
+                onMarkerClick={this.onMarkerClick}
+              />
             </section>
             <section className="favorites col-md-3">
-              <Favorites favorites={this.state.favorites} removeFromFavorites={this.removeFromFavorites} />
+              <Favorites
+                favorites={this.state.favorites}
+                removeFromFavorites={this.removeFromFavorites}
+              />
             </section>
           </div>
         </div>
