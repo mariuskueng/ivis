@@ -6,6 +6,7 @@ var mysql      = require('mysql');
 
 var app = express();
 var compiler = webpack(config);
+var port = process.env.PORT || 3000;
 
 var mysqlCredentials = {
   host     : 'localhost',
@@ -15,7 +16,7 @@ var mysqlCredentials = {
 };
 
 // ivis server credentials
-// 
+//
 // mysqlCredentials = {
 //   host     : 'server1102.cs.technik.fhnw.ch',
 //   user     : 'ivis_fs16',
@@ -105,11 +106,11 @@ app.get('/images', function(req, res) {
   }
 });
 
-app.listen(7770, 'localhost', function(err) {
+app.listen(port, 'localhost', function(err) {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log('Listening at http://localhost:7770');
+  console.log('Listening at http://localhost:' + port);
 });
