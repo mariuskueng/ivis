@@ -39,6 +39,7 @@ export default function SimpleMap (props) {
                   {...marker}
                   onRightclick={() => props.onMarkerRightclick(index)}
                   onClick={() => props.onMarkerClick(index)}
+                  icon='/assets/marker.png'
                 />
               );
             })}

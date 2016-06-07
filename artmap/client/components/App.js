@@ -145,6 +145,10 @@ const App = React.createClass({
             </div>
           </div>
         </div>
+        <div className="logo">
+          <h1>Artmap</h1>
+          <img src="/assets/logo_sik.gif" />
+        </div>
       </div>
     )
   }

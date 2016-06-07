@@ -1,5 +1,5 @@
 // Colors
-$pink: #c06;
+$pink: #e22984;
 $gray: #b8b8b8;
 $white: #fff;
 $black: #000;
@@ -19,14 +19,21 @@ body {
   height: 100%;
 }
 
-header {
-  height: 150px;
+.logo {
   position: fixed;
-  width: 100%;
-  z-index: 100;
+  right: 10px;
+  top: 10px;
 
   h1 {
     color: $pink;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  img {
+    display: inline-block;
+    margin-top: -15px;
+    width: 300px;
   }
 }
 

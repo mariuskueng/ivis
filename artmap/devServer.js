@@ -27,6 +27,8 @@ var mysqlCredentials = {
 var connection = mysql.createConnection(mysqlCredentials);
 connection.connect();
 
+app.use('/assets', express.static(__dirname + '/client/assets'));
+
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
