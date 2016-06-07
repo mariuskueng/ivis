@@ -7,35 +7,16 @@ $violet: #9a6ec2;
 
 $container-height: calc(100vh - 160px);
 
+.btn-primary {
+  background-color: $pink;
+  &:hover, &:focus {
+    background-color: $pink;
+  }
+}
+
 html,
 body {
   height: 100%;
-}
-
-.btn-circle {
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 6px 0;
-  font-size: 12px;
-  line-height: 1.428571429;
-  border-radius: 15px;
-}
-.btn-circle.btn-lg {
-  width: 50px;
-  height: 50px;
-  padding: 10px 16px;
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 25px;
-}
-.btn-circle.btn-xl {
-  width: 70px;
-  height: 70px;
-  padding: 10px 16px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 35px;
 }
 
 header {
@@ -49,8 +30,16 @@ header {
   }
 }
 
-.content {
-  margin: 0 10px;
+.sidebar {
+  background-color: $white;
+  border: 2px solid $pink;
+  height: 100vh;
+  overflow-y: scroll;
+  padding: 10px;
+}
+
+.main {
+  height: 100vh;
 }
 
 .map {
@@ -63,18 +52,8 @@ header {
   width: 100%;
 }
 
-.museum-info-wrapper {
-  position: fixed;
-  top: 150px;
-  z-index: 100;
-}
-
 .museum-info {
-  background-color: $white;
-  border: 2px solid $pink;
-  height: calc(100vh - 225px);
-  overflow: scroll;
-  padding: 10px;
+
 }
 
 .museum-info-toggle-button {
@@ -91,7 +70,6 @@ header {
 }
 
 .favorites {
-  height: $container-height;
 }
 
 .favorite-remove {

@@ -116,106 +116,35 @@ const App = React.createClass({
     });
   },
 
-  toggleMuseumInfo() {
-    this.setState({
-      showMuseumInfo: !this.state.showMuseumInfo
-    });
-  },
-
   render() {
     return (
-      <div>
-        {/* Header */}
-        <header className="container-fluid">
-          <div className="row">
-            <div className="col-md-4">
-              <h1>Artmap</h1>
-            </div>
-            <div className="col-md-8 col-md-push-2">
-              <div className="row">
-                <div className="col-md-12">
-
-                  <NameFilter getArtists={this.getArtists} />
-
-                  <div className="col-md-3">
-                    <div className="form-group">
-                      <label for="form-material">Welches Material?</label>
-                      <select id="form-material" className="form-control">
-                        <option>Alle</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="form-group">
-                      <label for="form-year">Welches Jahr?</label>
-                      <select id="form-year" className="form-control">
-                        <option>Alle</option>
-                      </select>
-                    </div>
-                  </div>
-
-                </div>
-                <div className="col-md-12">
-
-                  <div className="col-md-3">
-                    <div className="form-group">
-                      <label for="form-style">Welcher Stil?</label>
-                      <select id="form-style" className="form-control">
-                        <option>Alle</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="form-group">
-                      <label for="form-place">Welche Ortschaft?</label>
-                      <select id="form-place" className="form-control">
-                        <option>Alle</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="col-md-3">
-                    <div className="form-group">
-                      <label for="form-exhibition">Welche Ausstellung?</label>
-                      <select id="form-exhibition" className="form-control">
-                        <option>Alle</option>
-                      </select>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-3 sidebar">
+            <NameFilter getArtists={this.getArtists} />
+            <Favorites
+              favorites={this.state.favorites}
+              removeFromFavorites={this.removeFromFavorites}
+            />
+            <hr />
+            <MuseumInfo
+              artistId={this.state.artistId}
+              museumTitle={this.state.museumTitle}
+              favorites={this.state.favorites}
+              addToFavorites={this.addToFavorites}
+              images={this.state.images}
+              updateImages={this.updateImages}
+            />
+          </div>
+          <div className="col-md-9 main">
+            <div className="map">
+            <Map
+              markers={this.state.markers}
+              onMarkerClick={this.onMarkerClick}
+            />
             </div>
           </div>
-        </header>
-
-        {/* App content */}
-
-        <MuseumInfo
-          artistId={this.state.artistId}
-          museumTitle={this.state.museumTitle}
-          favorites={this.state.favorites}
-          addToFavorites={this.addToFavorites}
-          images={this.state.images}
-          updateImages={this.updateImages}
-          showMuseumInfo={this.state.showMuseumInfo}
-          toggleMuseumInfo={this.toggleMuseumInfo}
-        />
-        <section className="favorites">
-          <Favorites
-            favorites={this.state.favorites}
-            removeFromFavorites={this.removeFromFavorites}
-          />
-        </section>
-        <section className="map">
-          <Map
-            markers={this.state.markers}
-            onMarkerClick={this.onMarkerClick}
-          />
-        </section>
+        </div>
       </div>
     )
   }

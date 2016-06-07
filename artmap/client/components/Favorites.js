@@ -12,11 +12,13 @@ const Favorites = React.createClass({
   render () {
     const favoriteIds = Object.keys(this.props.favorites);
     return (
-      <div>
-        <h1>Merkliste</h1>
-        <ul>
-          {favoriteIds.length ? favoriteIds.map(this.renderFavorite) : 'Es sind noch keine Museen in der Merkliste'}
-        </ul>
+      <div className="row">
+        <div className="favorites col-md-12">
+          <h1>Merkliste</h1>
+          <ul>
+            {favoriteIds.length ? favoriteIds.map(this.renderFavorite) : 'Es sind noch keine Museen in der Merkliste'}
+          </ul>
+        </div>
       </div>
     )
   }
