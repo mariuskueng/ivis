@@ -3,9 +3,11 @@ import Map from './Map';
 import $ from 'jQuery';
 
 import NameFilter from './filters/NameFilter';
-import markers from '../data/markers';
 import MuseumInfo from './MuseumInfo';
 import Favorites from './Favorites';
+
+import markers from '../data/markers';
+import images from '../data/images';
 
 const GEOCODE_API_KEY = 'AIzaSyCDbgMkPWtPF1RXKYsgDKTX-nc_gmgmnp0';
 
@@ -13,10 +15,14 @@ const App = React.createClass({
   getInitialState(){
     return {
       markers, // use default markers for testing
-      museumTitle: '',
+      museumTitle: 'Zentrum Paul Klee',
       artistId: 4000058,
-      favorites: [],
-      images: [],
+      favorites: [
+        'Kunstmuseum Bern',
+        'Galerie Beyeler',
+        'Seedamm-Kulturzentrum'
+      ],
+      images,
       showMuseumInfo: false,
     }
   },
