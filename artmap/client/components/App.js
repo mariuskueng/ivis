@@ -17,6 +17,7 @@ const App = React.createClass({
       artistId: 4000058,
       favorites: [],
       images: [],
+      showMuseumInfo: false,
     }
   },
 
@@ -80,8 +81,10 @@ const App = React.createClass({
 
   onMarkerClick(index) {
     const museumTitle = this.state.markers[index].title;
+
     this.setState({
-      museumTitle
+      museumTitle,
+      showMuseumInfo: true
     });
     this.updateImages();
   },
@@ -110,6 +113,12 @@ const App = React.createClass({
       this.setState({
         images: results
       });
+    });
+  },
+
+  toggleMuseumInfo() {
+    this.setState({
+      showMuseumInfo: !this.state.showMuseumInfo
     });
   },
 
@@ -184,32 +193,29 @@ const App = React.createClass({
         </header>
 
         {/* App content */}
-        <div className="content container-fluid">
-          <div className="row">
-            <section className="museum-info col-md-3">
-              <MuseumInfo
-                artistId={this.state.artistId}
-                museumTitle={this.state.museumTitle}
-                favorites={this.state.favorites}
-                addToFavorites={this.addToFavorites}
-                images={this.state.images}
-                updateImages={this.updateImages}
-              />
-            </section>
-            <section className="map col-md-6">
-              <Map
-                markers={this.state.markers}
-                onMarkerClick={this.onMarkerClick}
-              />
-            </section>
-            <section className="favorites col-md-3">
-              <Favorites
-                favorites={this.state.favorites}
-                removeFromFavorites={this.removeFromFavorites}
-              />
-            </section>
-          </div>
-        </div>
+
+        <MuseumInfo
+          artistId={this.state.artistId}
+          museumTitle={this.state.museumTitle}
+          favorites={this.state.favorites}
+          addToFavorites={this.addToFavorites}
+          images={this.state.images}
+          updateImages={this.updateImages}
+          showMuseumInfo={this.state.showMuseumInfo}
+          toggleMuseumInfo={this.toggleMuseumInfo}
+        />
+        <section className="favorites">
+          <Favorites
+            favorites={this.state.favorites}
+            removeFromFavorites={this.removeFromFavorites}
+          />
+        </section>
+        <section className="map">
+          <Map
+            markers={this.state.markers}
+            onMarkerClick={this.onMarkerClick}
+          />
+        </section>
       </div>
     )
   }

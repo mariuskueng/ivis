@@ -12,10 +12,35 @@ body {
   height: 100%;
 }
 
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
 header {
-  background-color: $white;
   height: 150px;
-  position: relative;
+  position: fixed;
   width: 100%;
   z-index: 100;
 
@@ -29,15 +54,36 @@ header {
 }
 
 .map {
-  height: $container-height;
-  position: relative;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+}
+
+.museum-info-wrapper {
+  position: fixed;
+  top: 150px;
+  z-index: 100;
 }
 
 .museum-info {
+  background-color: $white;
   border: 2px solid $pink;
-  height: $container-height;
+  height: calc(100vh - 225px);
   overflow: scroll;
   padding: 10px;
+}
+
+.museum-info-toggle-button {
+  background-color: $pink;
+  color: $white;
+
+  &:hover, &:focus {
+    background-color: $pink;
+  }
 }
 
 .artwork-image {
