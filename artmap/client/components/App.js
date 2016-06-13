@@ -16,6 +16,7 @@ const App = React.createClass({
     return {
       markers, // use default markers for testing
       museumTitle: 'Zentrum Paul Klee',
+      museumCity: 'Bern',
       artistId: 4000058,
       favorites: [
         'Kunstmuseum Bern',
@@ -61,7 +62,7 @@ const App = React.createClass({
     let markers = [];
     console.info('Searching for exhibition location markers');
     locations.forEach((location) => {
-      const address = `${location.AUSST_INSTITUT}`;
+      const address = location.AUSST_INSTITUT;
       $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + GEOCODE_API_KEY)
       .done((data) => {
         if (data.results.length) {
@@ -72,6 +73,7 @@ const App = React.createClass({
               lng: geolocation.geometry.location.lng,
             },
             title: address,
+            city: location.AUSST_ORT,
             defaultAnimation: 2,
           });
 
@@ -86,10 +88,11 @@ const App = React.createClass({
   },
 
   onMarkerClick(index) {
-    const museumTitle = this.state.markers[index].title;
+    const museum = this.state.markers[index];
 
     this.setState({
-      museumTitle,
+      museumTitle: museum.title,
+      museumCity: museum.city,
       showMuseumInfo: true
     });
     this.updateImages();
@@ -136,6 +139,7 @@ const App = React.createClass({
             <MuseumInfo
               artistId={this.state.artistId}
               museumTitle={this.state.museumTitle}
+              museumCity={this.state.museumCity}
               favorites={this.state.favorites}
               addToFavorites={this.addToFavorites}
               images={this.state.images}

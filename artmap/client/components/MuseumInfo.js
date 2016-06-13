@@ -23,7 +23,7 @@ const museumTitleInfo = React.createClass({
         <div className="museum-info col-md-12">
           <h4>Ausgewähltes Museum:</h4>
           {!this.props.favorites.includes(this.props.museumTitle) && this.props.museumTitle ? <button className="btn btn-primary" onClick={this.props.addToFavorites.bind(null, this.props.museumTitle)}>Zur Merkliste hinzufügen</button> : ''}
-          <h1>{this.props.museumTitle ? this.props.museumTitle : 'Klicken Sie auf einen Pin in der Karte!'}</h1>
+          <h1>{this.props.museumTitle ? `${this.props.museumTitle} ${this.props.museumCity}` : 'Klicken Sie auf einen Pin in der Karte!'}</h1>
           <div className="">
             {this.props.images.length ? this.props.images.map(this.renderImage) : 'Keine Bilder gefunden!'}
           </div>
