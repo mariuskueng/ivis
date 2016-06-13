@@ -62,7 +62,7 @@ const App = React.createClass({
     let markers = [];
     console.info('Searching for exhibition location markers');
     locations.forEach((location) => {
-      const address = location.AUSST_INSTITUT;
+      const address = `${location.AUSST_INSTITUT} ${location.AUSST_ORT}`;
       $.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + GEOCODE_API_KEY)
       .done((data) => {
         if (data.results.length) {
@@ -72,7 +72,7 @@ const App = React.createClass({
               lat: geolocation.geometry.location.lat,
               lng: geolocation.geometry.location.lng,
             },
-            title: address,
+            title: location.AUSST_INSTITUT,
             city: location.AUSST_ORT,
             defaultAnimation: 2,
           });
