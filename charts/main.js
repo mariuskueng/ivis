@@ -11,3 +11,9 @@ d3.select(".chart")
   .enter().append("div")
     .style("width", function(d) { return x(d) + "px"; })
     .text(function(d) { return d; });
+
+
+var artists = 2217;
+var artistWithMoreThan10Artworks = 672;
+
+// var circular = d3.scale
