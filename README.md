@@ -15,3 +15,7 @@
     bower install
 
 [Open graphs](/graphs/index.html)
+
+## Artmap
+
+Follow instructions in [README](/artmap/README.md)
